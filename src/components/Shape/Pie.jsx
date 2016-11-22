@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { pie, arc } from 'd3-shape';
 import { interpolateLab as lab } from 'd3-interpolate';
 

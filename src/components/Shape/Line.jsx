@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { line, curveCatmullRom } from 'd3-shape';
 
 const Line = (props) => {
