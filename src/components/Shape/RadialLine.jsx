@@ -1,7 +1,7 @@
 import React from 'react';
 import { radialLine, curveCardinalClosed } from 'd3-shape';
 
-const RadialLine = (props) => {
+function RadialLine(props) {
   const { data } = props;
 
   const lineGenerator = radialLine()
@@ -16,10 +16,13 @@ const RadialLine = (props) => {
       d={lineGenerator(data)}
     />
   );
-};
+}
 
 RadialLine.propTypes = {
-  data: React.PropTypes.arrayOf(React.PropTypes.number.isRequired).isRequired,
+  data: React.PropTypes.arrayOf(React.PropTypes.shape({
+    x: React.PropTypes.number.isRequired,
+    y: React.PropTypes.number.isRequired,
+  })).isRequired,
 };
 
 export default RadialLine;

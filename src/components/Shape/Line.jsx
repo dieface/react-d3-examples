@@ -1,7 +1,7 @@
 import React from 'react';
 import { line, curveCatmullRom } from 'd3-shape';
 
-const Line = (props) => {
+function Line(props) {
   const { data } = props;
 
   const lineGenerator = line()
@@ -16,7 +16,7 @@ const Line = (props) => {
       d={lineGenerator(data)}
     />
   );
-};
+}
 
 Line.propTypes = {
   data: React.PropTypes.arrayOf(React.PropTypes.shape({

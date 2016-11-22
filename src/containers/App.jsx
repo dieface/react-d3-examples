@@ -1,6 +1,8 @@
 import React from 'react';
 import ShapeOnly from './ShapeOnly';
 
-const App = () => <ShapeOnly />;
+function App() {
+  return <ShapeOnly />;
+}
 
 export default App;

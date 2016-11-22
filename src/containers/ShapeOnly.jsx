@@ -1,7 +1,7 @@
 import React from 'react';
 import { Line, Pie, RadialLine } from '../components/Shape';
 
-const getDataLine = () => {
+function getDataLine() {
   const size = 500;
   const random = () => 500 * Math.random();
 
@@ -22,14 +22,14 @@ const getDataLine = () => {
   ];
 
   return data;
-};
+}
 
-const getDataPie = () => {
+function getDataPie() {
   const data = [1, 1, 2, 3, 5, 8, 13, 21];
   return data;
-};
+}
 
-const getDataRadialLine = () => {
+function getDataRadialLine() {
   const n = 500;
   const data = Array.from({ length: n }, (d, i) => {
     const x = (2 * i * Math.PI) / n;
@@ -39,26 +39,32 @@ const getDataRadialLine = () => {
   });
 
   return data;
-};
+}
 
-const calcCenter = () => (150 + (Math.random() * 200));
+function calcCenter() {
+  return (150 + (Math.random() * 200));
+}
 
-const getTransformCenter = () => `translate(${calcCenter()}, ${calcCenter()})`;
+function getTransformCenter() {
+  return `translate(${calcCenter()}, ${calcCenter()})`;
+}
 
-const ShapeOnly = () => (
-  <div>
-    <div style={{ height: 500, width: 500, border: '2px solid lightgray' }}>
-      <svg height={500} width={500}>
-        <Line data={getDataLine()} />
+function ShapeOnly() {
+  return (
+    <div>
+      <div style={{ height: 500, width: 500, border: '2px solid lightgray' }}>
+        <svg height={500} width={500}>
+          <Line data={getDataLine()} />
 
-        <g transform={getTransformCenter()}>
-          <Pie data={getDataPie()} />
-          <RadialLine data={getDataRadialLine()} />
-        </g>
+          <g transform={getTransformCenter()}>
+            <Pie data={getDataPie()} />
+            <RadialLine data={getDataRadialLine()} />
+          </g>
 
-      </svg>
+        </svg>
+      </div>
     </div>
-  </div>
-);
+  );
+}
 
 export default ShapeOnly;

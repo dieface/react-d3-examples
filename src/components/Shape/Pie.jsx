@@ -2,7 +2,7 @@ import React from 'react';
 import { pie, arc } from 'd3-shape';
 import { interpolateLab as lab } from 'd3-interpolate';
 
-const Pie = (props) => {
+function Pie(props) {
   const { data } = props;
   const arcs = pie()(data);
   const col = lab('darkgray', 'yellow');
@@ -27,7 +27,7 @@ const Pie = (props) => {
       })}
     </g>
   );
-};
+}
 
 Pie.propTypes = {
   data: React.PropTypes.arrayOf(React.PropTypes.number.isRequired).isRequired,
