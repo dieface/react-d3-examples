@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import ShapeOnly from './ShapeOnly';
 import './index.css';
 
 ReactDOM.render(
-  <App />,
-  document.getElementById('app')
+  <ShapeOnly />,
+  document.getElementById('root')
 );

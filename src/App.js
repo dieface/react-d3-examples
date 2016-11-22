@@ -6,6 +6,11 @@ import d3 from 'd3';
 import crossfilter from 'crossfilter';
 import _ from 'lodash';
 import ReactDOM from 'react-dom';
+import DialChart from './DialChart';
+import ChartContainer from './Chart';
+import DataSeries from './DataSeries';
+import LineGraph from './LineChart';
+import ShapeOnly from './ShapeOnly';
 
 /**
  * https://github.com/mikolalysenko/gauss-random
@@ -14,8 +19,16 @@ function randomGaussian() {
   return Math.sqrt( -2 * Math.log( Math.random() ) ) * Math.cos( 2 * Math.PI * Math.random() );
 }
 
+var fruitdata = [
+    {name: "Apples", count: 10},
+    {name: "Oranges", count: 20},
+    {name: "Bananas", count: 5},
+    {name: "Blueberries", count: 42},
+    {name: "mangoes ", count: 29}
+];
+
 const store = (() => {
-  const data = _.range( 388 ).map( (i) => { 
+  const data = _.range( 188 ).map( (i) => {
     // console.log(i, " -- ", randomGaussian() + 8);
     return [ i, randomGaussian() + 8 ]
   } );
@@ -126,7 +139,7 @@ const LineChart = React.createClass({
       width, height,
       x, y,
       xAccessor, yAccessor
-    } = this.props;  
+    } = this.props;
 
     width = width - margin.left - margin.right;
     height = height - margin.top - margin.bottom;
@@ -263,7 +276,7 @@ const BarChart = React.createClass({
     const histogram = d3.layout.histogram()
       .value( d => d.value )
       .bins( x.ticks( 24 ) );
-    
+
     console.log("histogram -->",  histogram );
 
     y = y || d3.scale.linear()
@@ -281,10 +294,10 @@ const BarChart = React.createClass({
 
     xAxis.ticks( 6 );
     yAxis.ticks( 6 );
- 
+
     let bars = g.append( 'g' )
       .attr( 'class', 'bars' )
-      .selectAll( '.bar' );   
+      .selectAll( '.bar' );
     console.log("g MOUNT --> ", g);
     console.log("bars MOUNT --> ", bars);
 
@@ -493,11 +506,13 @@ const ScatterPlot = React.createClass({
   }
 });
 
+
+
 const EntireChart = React.createClass({
   componentWillMount() {
     this.filterAll();
   },
-  
+
   filterAll() {
     _.forEach([
       store.index,
@@ -510,6 +525,20 @@ const EntireChart = React.createClass({
   },
 
   render() {
+    const lineGraphData = {
+      points: [
+        [ { x: 0, y: 20 }, { x: 1, y: 30 }, { x: 2, y: 10 }, { x: 3, y: 5 },
+          { x: 4, y: 8 }, { x: 5, y: 15 }, { x: 6, y: 10 } ],
+        [ { x: 0, y: 8 }, { x: 1, y: 5 }, { x: 2, y: 20 }, { x: 3, y: 12 },
+          { x: 4, y: 4 }, { x: 5, y: 6 }, { x: 6, y: 2 } ],
+        [ { x: 0, y: 0 }, { x: 1, y: 5 }, { x: 2, y: 8 }, { x: 3, y: 2 },
+          { x: 4, y: 6 }, { x: 5, y: 4 }, { x: 6, y: 2 } ]
+      ],
+      xValues: [0,1,2,3,4,5,6],
+      yMin: 0,
+      yMax: 30
+    };
+
     return (
       <div>
         <div className='chart-group'>
@@ -540,6 +569,33 @@ const EntireChart = React.createClass({
             yAccessor={d => d.key[1]}
             redrawAll={this.redrawAll} />
         </div>
+
+        <div>
+          <DialChart fill={60}/>
+        </div>
+
+        <div>
+          <ChartContainer width={this.props.width} heigh={this.props.heigh}>
+            <DataSeries
+              data={[ 30, 10, 5, 8, 15, 10 ]}
+              width={this.props.width}
+              height={this.props.height}
+              color="cornflowerblue"
+            />
+          </ChartContainer>
+        </div>
+
+        <div>
+          <LineGraph
+            data={lineGraphData}
+            width={600}
+            height={300}
+          />
+        </div>
+
+        <div>
+          <ShapeOnly />
+        </div>
       </div>
     );
   }
@@ -548,7 +604,7 @@ const EntireChart = React.createClass({
 class App extends Component {
   render() {
     return (
-      <EntireChart />
+      <EntireChart width={600} height={800} />
     );
   }
 }
