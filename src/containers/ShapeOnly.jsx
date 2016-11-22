@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Line, Pie, RadialLine } from '../components/Shape';
 
 function getDataLine() {
@@ -49,7 +49,7 @@ function getTransformCenter() {
   return `translate(${calcCenter()}, ${calcCenter()})`;
 }
 
-function ShapeOnly() {
+function RenderShapeOnly() {
   return (
     <div>
       <div style={{ height: 500, width: 500, border: '2px solid lightgray' }}>
@@ -60,11 +60,26 @@ function ShapeOnly() {
             <Pie data={getDataPie()} />
             <RadialLine data={getDataRadialLine()} />
           </g>
-
         </svg>
       </div>
     </div>
   );
+}
+
+class ShapeOnly extends Component {
+  render() {
+    return (
+      <div>
+        <button
+          onClick={() => { this.forceUpdate(); }}
+        >
+          Produce some new random data (not animated)
+        </button>
+
+        <RenderShapeOnly />
+      </div>
+    );
+  }
 }
 
 export default ShapeOnly;
