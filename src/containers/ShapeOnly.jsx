@@ -1,5 +1,5 @@
 import React from 'react';
-import { Line } from '../components/Shape';
+import { Line, Pie } from '../components/Shape';
 
 const getDataLine = () => {
   const size = 500;
@@ -24,11 +24,25 @@ const getDataLine = () => {
   return data;
 };
 
+const getDataPie = () => {
+  const data = [1, 1, 2, 3, 5, 8, 13, 21];
+  return data;
+};
+
+const calcCenter = () => (150 + (Math.random() * 200));
+
+const getTransformCenter = () => `translate(${calcCenter()}, ${calcCenter()})`;
+
 const ShapeOnly = () => (
   <div>
     <div style={{ height: 500, width: 500, border: '2px solid lightgray' }}>
       <svg height={500} width={500}>
         <Line data={getDataLine()} />
+
+        <g transform={getTransformCenter()}>
+          <Pie data={getDataPie()} />
+        </g>
+
       </svg>
     </div>
   </div>
